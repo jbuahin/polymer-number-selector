@@ -1,0 +1,65 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="./bower_components/iron-icons/iron-icons.html">
+<dom-module id="number-selector">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+      paper-icon-button {
+        fill: rgba(0,0,0,0);
+        stroke: currentcolor;
+      }
+      :host([pressed]) paper-icon-button {
+        fill: currentcolor;
+      }
+    </style>
+
+    <paper-icon-button id="increment" value="{{value}}" maximum="{{maximum}}" minimum="{{minimum}}" icon="add-circle-outline"></paper-icon-button>
+    [[value]]
+    <paper-icon-button id="decrement" value="{{value}}" maximum="{{maximum}}" minimum="{{minimum}}" icon="remove-circle-outline" ></paper-icon-button>
+  </template>
+
+  <script>
+    Polymer({
+       is: 'number-selector',
+       properties: {
+              value: {
+                type: Number,
+                notify:true,
+                value: 0,
+                reflectToAttribute: true
+            },
+            maximum:  {
+                type: Number,
+                notify:true,
+                reflectToAttribute: true
+            },
+            minimum: {
+                type: Number,
+                notify:true,
+                reflectToAttribute: true
+            }
+    },
+    listeners: {
+      'increment.tap': 'increment',
+      'decrement.tap': 'decrement'
+
+    },
+    increment: function() {
+      this.value++;
+       if(this.value > this.maximum){
+         this.value--;
+       }
+
+    },
+    decrement: function() {
+      this.value--;
+      if(this.value < this.minimum){
+        this.value++;
+      }
+    }
+    });
+  </script>
+</dom-module>
